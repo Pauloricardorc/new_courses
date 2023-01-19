@@ -18,9 +18,9 @@ export function CardProfile() {
         <div className="py-4 flex flex-col gap-1">
           <p className="font-semibold text-gray-700 capitalize">{user?.name}</p>
           <span className="text-sm text-gray-500">
-            Desenvolvedor Junior Front-End
+            {/* Desenvolvedor Junior Front-End */}
           </span>
-          <span className="text-xs text-gray-400">{user?.email}</span>
+          <span className="text-sm text-gray-400">{user?.email}</span>
         </div>
         <hr className="border-gray-100" />
         <div className="py-4 text-sm">

@@ -3,8 +3,9 @@ import { CardProfile } from "./components/cardProfile";
 import { CardNews } from "./components/news";
 
 export function Home() {
-  const [document] = useAllPrismicDocumentsByType("feed");
+  const [document] = useAllPrismicDocumentsByType("feeds");
   const data = document?.map((res) => res.data);
+
   return (
     <div className="flex w-full p-2 md:p-0">
       <div className="flex flex-col flex-1 h-screen overflow-auto">
