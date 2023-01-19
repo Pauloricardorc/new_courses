@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, body {
+  @apply outline-none focus:border focus:border-[#5c48a2]
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-transparent
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-transparent
+}
+
+button {
+  @apply outline-none border-none
+}
