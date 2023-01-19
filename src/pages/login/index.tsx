@@ -1,15 +1,17 @@
-import { Envelope, Key, User } from "phosphor-react";
+import { Envelope, Key, ShieldStar, User } from "phosphor-react";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../shared/Login/context";
 import { Input } from "./components/input";
 import Coffee from "../../core/assets/coffee.svg";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export function Login() {
   const { handleSignIn, session, auth } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | any>("");
+  const { loginWithRedirect } = useAuth0();
 
   const signIn = async (e: FormEvent) => {
     e.preventDefault();
@@ -17,12 +19,12 @@ export function Login() {
     setError(result);
   };
 
-  useEffect(() => {
-    const getSession = async () => {
-      await auth();
-    };
-    getSession();
-  }, [auth()]);
+  // useEffect(() => {
+  //   const getSession = async () => {
+  //     await auth();
+  //   };
+  //   getSession();
+  // }, [auth()]);
 
   return !session ? (
     <div className="h-screen w-screen bg-slate-100 text-gray-600 items-center justify-center flex flex-col gap-8">
@@ -72,9 +74,19 @@ export function Login() {
               ""
             )}
           </main>
-          <footer className="flex items-center justify-center mt-6">
-            <button className="w-[80%] bg-blue-600 h-11 text-gray-100 rounded-md hover:bg-blue-700">
+          <footer className="flex items-center justify-center mt-6 flex-col gap-2">
+            <button
+              className="w-[80%] bg-blue-600 h-10 text-gray-100 rounded-md hover:bg-blue-700"
+              disabled
+            >
               Entrar
+            </button>
+            <button
+              onClick={() => loginWithRedirect()}
+              className="w-[80%] bg-yellow-300 h-10 text-blue-600 rounded-md hover:bg-yellow-400 flex items-center justify-center gap-2"
+            >
+              <ShieldStar size={24} />
+              Auth0
             </button>
           </footer>
         </form>

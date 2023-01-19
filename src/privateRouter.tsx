@@ -1,20 +1,22 @@
-import { useContext, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate, Outlet } from "react-router-dom";
-import { AuthContext } from "./shared/Login/context";
 import { Sidebar } from "./shared/Login/layouts/sidebar";
+import Permission from "./core/assets/json/permission.json";
+import Lottie from "lottie-react";
 
 export function PrivateRouter() {
-  const { auth, session } = useContext(AuthContext);
+  const { isAuthenticated, isLoading } = useAuth0();
 
-  async function authUser() {
-    return await auth();
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center flex-col">
+        <Lottie animationData={Permission} className="w-[500px]" />
+        <span className="text-xl text-blue-500">Carregando Permissões</span>
+      </div>
+    );
   }
 
-  useEffect(() => {
-    authUser();
-  }, []);
-
-  return !!session ? (
+  return isAuthenticated ? (
     <div className="flex">
       <Sidebar />
       <Outlet />

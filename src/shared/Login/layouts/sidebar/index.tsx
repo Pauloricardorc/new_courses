@@ -5,9 +5,11 @@ import Lottie from "lottie-react";
 import Student from "../../../../core/assets/json/student.json";
 import { useContext } from "react";
 import { AuthContext } from "../../context";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export function Sidebar() {
-  const { handleSingOut } = useContext(AuthContext);
+  const { logout } = useAuth0();
+
   return (
     <div className="md:flex flex-col w-[350px] min-w-[200px] border-r border-gray-100 mr-4 h-screen justify-between hidden">
       <div className="">
@@ -55,7 +57,7 @@ export function Sidebar() {
         <Lottie animationData={Student} />
         <div className="w-full flex items-center justify-center">
           <button
-            onClick={handleSingOut}
+            onClick={() => logout({ returnTo: window.location.origin })}
             className="h-10 w-32 items-center justify-center flex text-lg border p-3 rounded-md bg-red-500 hover:bg-red-600 text-gray-50 transition duration-300"
           >
             Sair

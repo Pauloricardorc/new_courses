@@ -42,7 +42,7 @@ export function CardNews({
 
       <main className="flex flex-col gap-2 text-gray-600 font-medium">
         {description?.map((sub, index) => (
-          <p>{sub.text}</p>
+          <p key={index}>{sub.text}</p>
         ))}
 
         <img src={feed} alt="" className="border border-gray-100" />

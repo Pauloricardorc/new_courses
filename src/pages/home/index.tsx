@@ -21,6 +21,7 @@ export function Home() {
         <main>
           {data?.map((feed) => (
             <CardNews
+              key={feed.publication}
               img_profile={feed.img_user.url}
               title={feed.user_name[0].text}
               subTitle={feed.description_user[0].text}

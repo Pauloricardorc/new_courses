@@ -15,7 +15,7 @@ export function Router() {
         <Route path="/sobre" element={<Sobre />} />
       </Route>
       <Route path="/login" element={<Login />} />
-      <Route path="/*" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
