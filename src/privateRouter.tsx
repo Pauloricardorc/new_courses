@@ -10,7 +10,7 @@ export function PrivateRouter() {
   if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center flex-col">
-        <Lottie animationData={Permission} className="w-[500px]" />
+        <Lottie animationData={Permission} className="w-[450px]" />
         <span className="text-xl text-blue-500">Carregando Permissões</span>
       </div>
     );

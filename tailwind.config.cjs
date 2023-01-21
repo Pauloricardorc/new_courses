@@ -11,7 +11,7 @@ module.exports = {
       },
       colors: {
         primary: '#5c48a2',
-        primaryHover: '#5c48a2c2'
+        primaryHover: '#5c48a295'
       }
     },
   },

@@ -5,13 +5,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 export function CardProfile() {
   const { user } = useAuth0();
   return (
-    <div className="flex w-full h-auto flex-col rounded-md overflow-hidden border border-gray-200">
+    <div className="flex w-full h-auto flex-col rounded-md overflow-hidden border border-gray-100">
       <img src={wallpaperCard} alt="" className="h-36 bg-cover" />
       <div className="-mt-12 ml-4">
         <img
           src={user?.picture}
           alt=""
-          className="w-20 rounded-full border-2 border-white drop-shadow-lg"
+          className="w-20 h-20 rounded-full border-2 border-white drop-shadow-lg"
         />
       </div>
       <div className="flex flex-col p-4">
