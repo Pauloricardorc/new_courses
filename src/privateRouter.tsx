@@ -3,6 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { Sidebar } from "./shared/Login/layouts/sidebar";
 import Permission from "./core/assets/json/permission.json";
 import Lottie from "lottie-react";
+import { Header } from "./shared/Login/layouts/header";
 
 export function PrivateRouter() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -17,9 +18,12 @@ export function PrivateRouter() {
   }
 
   return isAuthenticated ? (
-    <div className="flex">
-      <Sidebar />
-      <Outlet />
+    <div className="flex flex-col">
+      <Header />
+      <div className="flex">
+        <Sidebar />
+        <Outlet />
+      </div>
     </div>
   ) : (
     <Navigate to="/login" replace={true} />

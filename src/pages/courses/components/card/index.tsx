@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   useAllPrismicDocumentsByTag,
   useAllPrismicDocumentsByType,
@@ -8,7 +8,10 @@ import React from "../../../../core/assets/react-light.svg";
 import { NavLink } from "react-router-dom";
 
 type PropsItems = {
-  img: {
+  image: {
+    url: string;
+  };
+  img_preview: {
     url: string;
   };
   video_description: {
@@ -46,6 +49,17 @@ interface ICardProps {
   primary: PropsPrimary;
 }
 
+type IImg = {
+  img: {
+    image: {
+      url: string;
+    };
+    img_preview: {
+      url: string;
+    };
+  };
+};
+
 export function CardCourses() {
   const [cardCourses, setCardCourses] = useState<ICardProps[]>([]);
   const [document] = useAllPrismicDocumentsByType("courses");
@@ -54,22 +68,44 @@ export function CardCourses() {
     document?.map((res) => setCardCourses(res.data.body));
   }, [document]);
 
+  function RenderImg({ img }: IImg) {
+    const [renderImg, setRenderImg] = useState<ReactNode>();
+    return (
+      <div
+        className="max-h-52 h-52 w-full flex transition duration-200"
+        onMouseEnter={() =>
+          setRenderImg(
+            <img src={img?.img_preview.url} alt="" className="w-full h-26" />
+          )
+        }
+        onMouseLeave={() => setRenderImg("")}
+      >
+        {!renderImg ? (
+          <img src={img?.image.url} alt="" className="w-full h-26" />
+        ) : (
+          renderImg
+        )}
+      </div>
+    );
+  }
+
   return (
     <>
       {cardCourses.map((card) => (
         <div
           key={card.id}
-          className="w-full md:w-[380px] h-auto bg-white border border-gray-100 p-4 flex flex-col gap-4 drop-shadow-sm rounded-md"
+          className="w-full md:w-[380px] h-auto bg-white border border-gray-100 flex flex-col gap-4 drop-shadow-sm rounded-md overflow-hidden"
         >
-          <header>
-            <img src={React} alt="" className="w-16" />
+          <header className="relative">
+            <RenderImg img={card.items[0]} />
+            <img src={React} alt="" className="w-24 px-4 absolute bottom-0" />
           </header>
-          <main className="flex flex-col gap-2">
+          <main className="flex flex-col gap-2 px-4">
             <p className="font-bold text-lg text-gray-600 capitalize">
               {card.items[0].video_title[0].text}
             </p>
-            <span className="text-green-300 text-lg font-bold">
-              ${card.items[0].price[0].text}
+            <span className="text-green-500 text-lg font-semibold">
+              $ {card.items[0].price[0].text}
             </span>
             <hr className="border-gray-100 py-1" />
             <div className="flex items-center gap-4 text-gray-500">
@@ -87,7 +123,7 @@ export function CardCourses() {
               </div>
             </div>
           </main>
-          <footer className="flex items-end justify-end">
+          <footer className="flex items-end justify-end px-4 pb-4">
             <NavLink
               to={`/cursos/${card.id}`}
               className="border rounded-md py-2 px-4 text-sm border-primary text-primary hover:bg-primaryHover hover:border-primaryHover focus:text-white focus:bg-primaryHover focus:border-primaryHover hover:text-white transition duration-150"

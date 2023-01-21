@@ -3,8 +3,6 @@ import { NavLink } from "react-router-dom";
 import Coffee from "../../../../core/assets/coffee.svg";
 import Lottie from "lottie-react";
 import Student from "../../../../core/assets/json/student.json";
-import { useContext } from "react";
-import { AuthContext } from "../../context";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export function Sidebar() {
