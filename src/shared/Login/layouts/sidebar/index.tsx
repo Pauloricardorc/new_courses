@@ -58,7 +58,9 @@ export function Sidebar() {
         <div className="w-full flex items-center justify-center">
           <button
             onClick={() => logout({ returnTo: window.location.origin })}
-            className="h-10 w-32 items-center justify-center flex text-lg border p-3 rounded-md bg-red-500 hover:bg-red-600 text-gray-50 transition duration-300"
+            className="
+            h-10 w-32 items-center justify-center flex text-lg border p-3 rounded-md bg-red-500 hover:bg-red-600 text-gray-50 transition duration-300
+            "
           >
             Sair
           </button>
