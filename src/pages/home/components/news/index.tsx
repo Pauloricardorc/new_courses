@@ -29,7 +29,11 @@ export function CardNews({
     <div className="w-full xl:w-[800px] h-auto border-b border-t border-gray-200 py-4">
       <header className="flex mb-4 justify-between">
         <div className="flex gap-3">
-          <img src={img_profile} alt="" className="w-12 rounded-full" />
+          <img
+            src={img_profile}
+            alt=""
+            className="max-w-12 max-h-12 rounded-full"
+          />
           <div className="flex flex-col justify-between">
             <p className="font-semibold text-gray-700">{title}</p>
             <span className="text-sm text-gray-500">{subTitle}</span>

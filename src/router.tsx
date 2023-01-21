@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router";
 import { Cursos } from "./pages/courses";
+import { DetailCourse } from "./pages/courses/details";
 import { Home } from "./pages/home";
 import { Sobre } from "./pages/infos";
 import { Login } from "./pages/login";
@@ -12,6 +13,7 @@ export function Router() {
       <Route element={<PrivateRouter />}>
         <Route path="/" element={<Home />} />
         <Route path="/cursos" element={<Cursos />} />
+        <Route path="/cursos/:id" element={<DetailCourse />} />
         <Route path="/sobre" element={<Sobre />} />
       </Route>
       <Route path="/login" element={<Login />} />
