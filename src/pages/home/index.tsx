@@ -27,7 +27,7 @@ export function Home() {
               title={feed.user_name[0].text}
               subTitle={feed.description_user[0].text}
               description={feed.descricao}
-              feed={feed.feed[0].url}
+              feed={feed.feed[0]?.url || ""}
             />
           ))}
         </main>

@@ -69,7 +69,7 @@ export function DetailCourse() {
 
   return course ? (
     <div className="flex xl:flex-row w-full h-screen gap-3 xs:flex-col">
-      <div className="max-w-5xl gap-4 flex flex-col p-2">
+      <div className="max-w-[700px] gap-4 flex flex-col p-2 overflow-auto">
         <div className="flex flex-col gap-3">
           <p className="text-xl text-gray-600 font-medium">
             {course[0]?.items[0].video_title[0].text}
@@ -97,12 +97,16 @@ export function DetailCourse() {
           </div>
         </div>
       </div>
-      <div className="flex flex-1 border-l border-gray-200">
+      <div className="flex flex-1 border-l border-gray-200 overflow-hidden">
         <div className="w-[500px] flex flex-col gap-4 p-4">
           {course[0]?.items.map((course, index) => (
             <div
               key={index}
-              className="w-full h-auto max-h-[180px] flex p-2 gap-4 bg-slate-100 rounded-md hover:cursor-pointer bg-cover overflow-hidden"
+              className={
+                items === index
+                  ? "w-full h-auto max-h-[180px] flex p-2 gap-4 bg-primary rounded-md hover:cursor-pointer bg-cover overflow-hidden"
+                  : "w-full h-auto max-h-[180px] flex p-2 gap-4 bg-slate-100 rounded-md hover:cursor-pointer bg-cover overflow-hidden"
+              }
               onClick={() => setItem(index)}
             >
               <img
@@ -111,10 +115,22 @@ export function DetailCourse() {
                 className="w-28 h-20 rounded-md"
               />
               <div className="flex flex-col gap-2">
-                <span className="text-base text-gray-600 font-semibold">
+                <span
+                  className={
+                    items === index
+                      ? "text-base text-gray-200 font-semibold transition duration-200"
+                      : "text-base text-gray-600 font-semibold transition duration-200"
+                  }
+                >
                   {course?.video_title[0]?.text}
                 </span>
-                <span className="text-sm text-gray-500">
+                <span
+                  className={
+                    items === index
+                      ? "text-sm text-gray-400 transition duration-200"
+                      : "text-sm text-gray-500 transition duration-200"
+                  }
+                >
                   {course?.video_description[0]?.text}
                 </span>
               </div>

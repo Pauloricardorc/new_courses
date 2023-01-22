@@ -26,13 +26,13 @@ export function CardNews({
   feed,
 }: FeedProps) {
   return (
-    <div className="w-full xl:w-[800px] h-auto border-b border-t border-gray-200 py-4">
+    <div className="w-full flex-1 h-auto border-b border-t border-gray-200 p-2 xl:py-4">
       <header className="flex mb-4 justify-between">
         <div className="flex gap-3">
           <img
-            src={img_profile}
+            src={img_profile ? img_profile : ""}
             alt=""
-            className="max-w-12 max-h-12 rounded-full"
+            className="max-w-12 w-12 max-h-12 h-12 rounded-full"
           />
           <div className="flex flex-col justify-between">
             <p className="font-semibold text-gray-700">{title}</p>
@@ -48,8 +48,7 @@ export function CardNews({
         {description?.map((sub, index) => (
           <p key={index}>{sub.text}</p>
         ))}
-
-        <img src={feed} alt="" className="border border-gray-100" />
+        <img src={feed ? feed : ""} alt="" className="border border-gray-100" />
       </main>
       <footer className="flex justify-between pt-4">
         <div className="flex items-center gap-5">

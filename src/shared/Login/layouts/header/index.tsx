@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import Coffee from "../../../../core/assets/coffee.svg";
 
 export function Header() {
-  const [headerActive, setHeaderActive] = useState(true);
+  const [headerActive, setHeaderActive] = useState(false);
   return (
     <div
       className={

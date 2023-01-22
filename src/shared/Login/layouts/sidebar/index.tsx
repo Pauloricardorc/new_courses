@@ -51,8 +51,10 @@ export function Sidebar() {
           </NavLink>
         </main>
       </div>
-      <footer className="py-8">
-        <Lottie animationData={Student} />
+      <footer className="py-8 flex flex-col gap-2">
+        <div className="flex items-center justify-center w-40 self-center justify-self-center">
+          <Lottie animationData={Student} />
+        </div>
         <div className="w-full flex items-center justify-center">
           <button
             onClick={() => logout({ returnTo: window.location.origin })}
