@@ -68,8 +68,8 @@ export function DetailCourse() {
   }, [document]);
 
   return course ? (
-    <div className="flex xl:flex-row w-full h-screen gap-3 xs:flex-col">
-      <div className="max-w-[700px] gap-4 flex flex-col p-2 overflow-auto">
+    <div className="flex xl:flex-row w-full h-screen gap-3 xs:flex-col overflow-auto xl:overflow-hidden">
+      <div className="max-w-[700px] gap-4 flex flex-col p-2 xl:overflow-auto">
         <div className="flex flex-col gap-3">
           <p className="text-xl text-gray-600 font-medium">
             {course[0]?.items[0].video_title[0].text}
@@ -97,15 +97,15 @@ export function DetailCourse() {
           </div>
         </div>
       </div>
-      <div className="flex flex-1 border-l border-gray-200 overflow-hidden">
-        <div className="w-[500px] flex flex-col gap-4 p-4">
+      <div className="flex flex-1 border-l border-gray-200 h-screen">
+        <div className="w-[500px] h-[400px] flex flex-col gap-4 p-4">
           {course[0]?.items.map((course, index) => (
             <div
               key={index}
               className={
                 items === index
-                  ? "w-full h-auto max-h-[180px] flex p-2 gap-4 bg-primary rounded-md hover:cursor-pointer bg-cover overflow-hidden"
-                  : "w-full h-auto max-h-[180px] flex p-2 gap-4 bg-slate-100 rounded-md hover:cursor-pointer bg-cover overflow-hidden"
+                  ? "w-full h-auto max-h-[150px] flex p-2 gap-4 bg-primary rounded-md hover:cursor-pointer bg-cover overflow-hidden"
+                  : "w-full h-auto max-h-[150px] flex p-2 gap-4 bg-slate-100 rounded-md hover:cursor-pointer bg-cover overflow-hidden"
               }
               onClick={() => setItem(index)}
             >
@@ -127,8 +127,8 @@ export function DetailCourse() {
                 <span
                   className={
                     items === index
-                      ? "text-sm text-gray-400 transition duration-200"
-                      : "text-sm text-gray-500 transition duration-200"
+                      ? "text-sm text-gray-400 transition duration-200 overflow-auto"
+                      : "text-sm text-gray-500 transition duration-200 overflow-auto"
                   }
                 >
                   {course?.video_description[0]?.text}

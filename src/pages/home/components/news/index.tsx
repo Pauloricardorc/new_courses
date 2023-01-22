@@ -26,7 +26,7 @@ export function CardNews({
   feed,
 }: FeedProps) {
   return (
-    <div className="w-full flex-1 h-auto border-b border-t border-gray-200 p-2 xl:py-4">
+    <div className="flex flex-col w-full flex-1 h-auto border-b border-t border-gray-200 p-2 xl:py-4">
       <header className="flex mb-4 justify-between">
         <div className="flex gap-3">
           <img

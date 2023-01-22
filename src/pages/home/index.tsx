@@ -8,8 +8,8 @@ export function Home() {
 
   return (
     <div className="flex w-full p-2 md:p-0">
-      <div className="flex flex-col flex-1 h-screen overflow-auto">
-        <header className="pb-8 max-w-2xl">
+      <div className="flex flex-col flex-1 h-screen overflow-auto max-w-full md:max-w-[80%] 2xl:mx-40">
+        <header className="flex flex-col pb-8">
           <header className="flex flex-col gap-2 mt-8">
             <h1 className="text-2xl">Página Inicial</h1>
             <p className="text-gray-400">
@@ -19,7 +19,7 @@ export function Home() {
             </p>
           </header>
         </header>
-        <main>
+        <main className="flex flex-col">
           {data?.map((feed) => (
             <CardNews
               key={feed.publication}
