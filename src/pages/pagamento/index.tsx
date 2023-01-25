@@ -19,14 +19,16 @@ import { useNavigate } from "react-router-dom";
 export function Payment() {
   const { user } = useAuth0();
   const navigate = useNavigate();
+  const [paying, setPaying] = useState(0);
 
   async function UserIsPaying() {
+    if (paying === 1) {
+      navigate("/");
+    }
     const userCollection = collection(firestore, "users");
     const queryCollection = query(userCollection, where("id", "==", user?.sub));
     const snapshot = await getCountFromServer(queryCollection);
-    if (snapshot.data().count === 1) {
-      navigate("/");
-    }
+    setPaying(snapshot.data().count);
     return snapshot.data().count;
   }
 
@@ -34,13 +36,15 @@ export function Payment() {
     if ((await UserIsPaying()) === 0) {
       const ref = collection(firestore, "users");
 
-      addDoc(ref, {
+      await addDoc(ref, {
         id: user?.sub,
         pagamento: true,
         email: user?.email,
         foto: user?.picture,
         data: new Date(),
       });
+
+      setPaying(1);
     } else {
       return null;
     }
@@ -48,7 +52,7 @@ export function Payment() {
 
   useEffect(() => {
     UserIsPaying();
-  }, []);
+  }, [paying]);
 
   return (
     <div className="w-screen h-screen flex items-center justify-center bg-slate-100 flex-col">
