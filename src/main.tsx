@@ -7,6 +7,13 @@ import "./index.css";
 import { Router } from "./router";
 import { AuthProvider } from "./shared/Login/context";
 import { Auth0Provider } from "@auth0/auth0-react";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+
+const initialOptions = {
+  "client-id": import.meta.env.VITE_PAYPAL_KEY,
+  currency: "BRL",
+  intent: "capture",
+};
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
@@ -17,7 +24,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     >
       <AuthProvider>
         <PrismicProvider client={client}>
-          <Router />
+          <PayPalScriptProvider options={initialOptions}>
+            <Router />
+          </PayPalScriptProvider>
         </PrismicProvider>
       </AuthProvider>
     </Auth0Provider>

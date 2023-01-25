@@ -1,11 +1,35 @@
 import wallpaperCard from "../../../../core/assets/wallpaperCard.png";
 import ImgProfile from "../../../../core/assets/myimg.jpg";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Star } from "phosphor-react";
+import { NavLink } from "react-router-dom";
+import {
+  collection,
+  getCountFromServer,
+  query,
+  where,
+} from "firebase/firestore";
+import { firestore } from "../../../../core/service/firebase";
+import { useEffect, useState } from "react";
 
 export function CardProfile() {
   const { user } = useAuth0();
+  const [count, setCount] = useState<number | null>();
+
+  async function UserIsPaying() {
+    const userCollection = collection(firestore, "users");
+    const queryCollection = query(userCollection, where("id", "==", user?.sub));
+    const snapshot = await getCountFromServer(queryCollection);
+    const qt = snapshot.data().count;
+    return setCount(qt);
+  }
+
+  useEffect(() => {
+    UserIsPaying();
+  }, [count]);
+
   return (
-    <div className="flex w-full h-auto flex-col rounded-md overflow-hidden border border-gray-100">
+    <div className="flex w-full h-auto flex-col rounded-md overflow-hidden border border-gray-100 bg-white drop-shadow-lg">
       <img src={wallpaperCard} alt="" className="h-36 bg-cover" />
       <div className="-mt-12 ml-4">
         <img
@@ -33,10 +57,23 @@ export function CardProfile() {
             <span className="text-blue-500 font-semibold">200</span>
           </div>
         </div>
-        <div className="flex p-2">
-          <button className="w-full h-12 rounded-md bg-blue-500 text-gray-100 hover:bg-blue-600 transition duration-150">
+        <div className="flex p-2 flex-col gap-2">
+          <NavLink
+            to=""
+            className="w-full h-12 rounded-md bg-blue-500 text-gray-100 hover:bg-blue-600 transition duration-150 flex items-center justify-center"
+          >
             Configurações
-          </button>
+          </NavLink>
+          {count === null ||
+            (count === 0 && (
+              <NavLink
+                to="pagamento"
+                className="w-full h-12 rounded-md bg-yellow-400 text-white hover:bg-yellow-500 transition duration-150 flex items-center justify-center gap-2"
+              >
+                Seja Pro
+                <Star weight="fill" size={18} />
+              </NavLink>
+            ))}
         </div>
       </div>
     </div>

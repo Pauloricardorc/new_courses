@@ -7,8 +7,8 @@ export function Home() {
   const data = document?.map((res) => res.data);
 
   return (
-    <div className="flex w-full p-2 md:p-0">
-      <div className="flex flex-col flex-1 h-screen overflow-auto max-w-full md:max-w-[80%] 2xl:mx-40">
+    <div className="flex w-full p-2 md:p-0 bg-slate-100">
+      <div className="flex flex-col flex-1 h-screen overflow-auto 2xl:px-36">
         <header className="flex flex-col pb-8">
           <header className="flex flex-col gap-2 mt-8">
             <h1 className="text-2xl">Página Inicial</h1>

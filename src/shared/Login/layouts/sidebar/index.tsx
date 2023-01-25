@@ -4,12 +4,33 @@ import Coffee from "../../../../core/assets/coffee.svg";
 import Lottie from "lottie-react";
 import Student from "../../../../core/assets/json/student.json";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from "react";
+import {
+  collection,
+  getCountFromServer,
+  query,
+  where,
+} from "firebase/firestore";
+import { firestore } from "../../../../core/service/firebase";
 
 export function Sidebar() {
-  const { logout } = useAuth0();
+  const { user, logout } = useAuth0();
+  const [count, setCount] = useState(0);
+
+  async function UserIsPaying() {
+    const userCollection = collection(firestore, "users");
+    const queryCollection = query(userCollection, where("id", "==", user?.sub));
+    const snapshot = await getCountFromServer(queryCollection);
+    const qt = snapshot.data().count;
+    return setCount(qt);
+  }
+
+  useEffect(() => {
+    UserIsPaying();
+  }, [count]);
 
   return (
-    <div className="md:flex flex-col w-[350px] min-w-[200px] border-r border-gray-100 mr-4 h-screen justify-between hidden">
+    <div className="md:flex flex-col w-[350px] min-w-[200px] border-r border-gray-100  h-screen justify-between hidden">
       <div className="">
         <header className="flex items-center justify-center gap-4 text-2xl font-semibold py-4">
           <img src={Coffee} alt="" className="w-14" />
@@ -27,17 +48,19 @@ export function Sidebar() {
             <House size={22} />
             Página Incial
           </NavLink>
-          <NavLink
-            to="/cursos"
-            className={({ isActive }) =>
-              isActive
-                ? "hover:text-black bg-gray-100 p-3 rounded-lg flex items-center gap-4 border border-transparent"
-                : "hover:text-black p-3 rounded-lg flex items-center gap-4 border border-transparent"
-            }
-          >
-            <Notebook size={22} />
-            Cursos
-          </NavLink>
+          {count !== 0 && (
+            <NavLink
+              to="/cursos"
+              className={({ isActive }) =>
+                isActive
+                  ? "hover:text-black bg-gray-100 p-3 rounded-lg flex items-center gap-4 border border-transparent"
+                  : "hover:text-black p-3 rounded-lg flex items-center gap-4 border border-transparent"
+              }
+            >
+              <Notebook size={22} />
+              Cursos
+            </NavLink>
+          )}
           <NavLink
             to="/sobre"
             className={({ isActive }) =>
