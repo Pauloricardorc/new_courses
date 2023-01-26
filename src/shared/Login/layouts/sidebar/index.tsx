@@ -4,7 +4,7 @@ import Coffee from "../../../../core/assets/coffee.svg";
 import Lottie from "lottie-react";
 import Student from "../../../../core/assets/json/student.json";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   collection,
   getCountFromServer,
@@ -12,18 +12,11 @@ import {
   where,
 } from "firebase/firestore";
 import { firestore } from "../../../../core/service/firebase";
+import { AuthenticatedContext } from "../../../../core/authenticated";
 
 export function Sidebar() {
   const { user, logout } = useAuth0();
-  const [count, setCount] = useState(0);
-
-  async function UserIsPaying() {
-    const userCollection = collection(firestore, "users");
-    const queryCollection = query(userCollection, where("id", "==", user?.sub));
-    const snapshot = await getCountFromServer(queryCollection);
-    const qt = snapshot.data().count;
-    return setCount(qt);
-  }
+  const { count, UserIsPaying } = useContext(AuthenticatedContext);
 
   useEffect(() => {
     UserIsPaying();
@@ -48,7 +41,7 @@ export function Sidebar() {
             <House size={22} />
             Página Incial
           </NavLink>
-          {count !== 0 && (
+          {count === 1 && (
             <NavLink
               to="/cursos"
               className={({ isActive }) =>

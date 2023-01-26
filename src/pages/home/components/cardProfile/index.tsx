@@ -10,19 +10,12 @@ import {
   where,
 } from "firebase/firestore";
 import { firestore } from "../../../../core/service/firebase";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthenticatedContext } from "../../../../core/authenticated";
 
 export function CardProfile() {
   const { user } = useAuth0();
-  const [count, setCount] = useState<number | null>();
-
-  async function UserIsPaying() {
-    const userCollection = collection(firestore, "users");
-    const queryCollection = query(userCollection, where("id", "==", user?.sub));
-    const snapshot = await getCountFromServer(queryCollection);
-    const qt = snapshot.data().count;
-    return setCount(qt);
-  }
+  const { count, UserIsPaying } = useContext(AuthenticatedContext);
 
   useEffect(() => {
     UserIsPaying();
@@ -64,16 +57,15 @@ export function CardProfile() {
           >
             Configurações
           </NavLink>
-          {count === null ||
-            (count === 0 && (
-              <NavLink
-                to="pagamento"
-                className="w-full h-12 rounded-md bg-yellow-400 text-white hover:bg-yellow-500 transition duration-150 flex items-center justify-center gap-2"
-              >
-                Seja Pro
-                <Star weight="fill" size={18} />
-              </NavLink>
-            ))}
+          {count !== 1 && (
+            <NavLink
+              to="pagamento"
+              className="w-full h-12 rounded-md bg-yellow-400 text-white hover:bg-yellow-500 transition duration-150 flex items-center justify-center gap-2"
+            >
+              Seja Pro
+              <Star weight="fill" size={18} />
+            </NavLink>
+          )}
         </div>
       </div>
     </div>

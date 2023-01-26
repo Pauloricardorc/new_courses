@@ -8,6 +8,7 @@ import { Router } from "./router";
 import { AuthProvider } from "./shared/Login/context";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { AuthenticatedProvider } from "./core/authenticated";
 
 const initialOptions = {
   "client-id": import.meta.env.VITE_PAYPAL_KEY,
@@ -25,7 +26,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <AuthProvider>
         <PrismicProvider client={client}>
           <PayPalScriptProvider options={initialOptions}>
-            <Router />
+            <AuthenticatedProvider>
+              <Router />
+            </AuthenticatedProvider>
           </PayPalScriptProvider>
         </PrismicProvider>
       </AuthProvider>
