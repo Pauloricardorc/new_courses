@@ -34,8 +34,8 @@ export function Sidebar() {
             to="/"
             className={({ isActive }) =>
               isActive
-                ? "hover:text-black bg-gray-100 p-3 rounded-lg flex items-center gap-4 border border-transparent"
-                : "hover:text-black p-3 rounded-lg flex items-center gap-4 border border-transparent"
+                ? "text-gray-200 bg-primary p-3 rounded-lg flex items-center gap-4 border border-transparent transition duration-300"
+                : "hover:text-primary p-3 rounded-lg flex items-center gap-4 border border-transparent"
             }
           >
             <House size={22} />
@@ -46,8 +46,8 @@ export function Sidebar() {
               to="/cursos"
               className={({ isActive }) =>
                 isActive
-                  ? "hover:text-black bg-gray-100 p-3 rounded-lg flex items-center gap-4 border border-transparent"
-                  : "hover:text-black p-3 rounded-lg flex items-center gap-4 border border-transparent"
+                  ? "text-gray-200 bg-primary p-3 rounded-lg flex items-center gap-4 border border-transparent transition duration-300"
+                  : "hover:text-primary p-3 rounded-lg flex items-center gap-4 border border-transparent"
               }
             >
               <Notebook size={22} />
@@ -58,8 +58,8 @@ export function Sidebar() {
             to="/sobre"
             className={({ isActive }) =>
               isActive
-                ? "hover:text-black bg-gray-100 p-3 rounded-lg flex items-center gap-4 border border-transparent"
-                : "hover:text-black p-3 rounded-lg flex items-center gap-4 border border-transparent"
+                ? "text-gray-200 bg-primary p-3 rounded-lg flex items-center gap-4 border border-transparent transition duration-300"
+                : "hover:text-primary p-3 rounded-lg flex items-center gap-4 border border-transparent"
             }
           >
             <Question size={22} />
@@ -67,15 +67,15 @@ export function Sidebar() {
           </NavLink>
         </main>
       </div>
-      <footer className="py-8 flex flex-col gap-2">
-        <div className="flex items-center justify-center w-40 self-center justify-self-center">
+      <footer className="py-2 flex flex-col gap-2">
+        <div className="flex items-center justify-center w-48 self-center justify-self-center">
           <Lottie animationData={Student} />
         </div>
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full flex items-center justify-center px-4">
           <button
             onClick={() => logout({ returnTo: window.location.origin })}
             className="
-            h-10 w-32 items-center justify-center flex text-lg border p-3 rounded-md bg-red-500 hover:bg-red-600 text-gray-50 transition duration-300
+            h-10 w-full items-center justify-center flex text-lg border p-3 rounded-md bg-red-500 hover:bg-red-600 text-gray-50 transition duration-300
             "
           >
             Sair

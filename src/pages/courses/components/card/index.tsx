@@ -92,7 +92,7 @@ export function CardCourses() {
       {cardCourses.map((card) => (
         <div
           key={card.id}
-          className="w-full md:w-[380px] h-auto bg-white border border-gray-100 flex flex-col gap-4 drop-shadow-sm rounded-md overflow-hidden"
+          className="w-full md:w-[380px] h-auto bg-white border border-gray-100 flex flex-col gap-4 hover:drop-shadow-2xl rounded-2xl overflow-hidden transition duration-500"
         >
           <header className="relative">
             <RenderImg

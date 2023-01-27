@@ -9,6 +9,7 @@ import GithubPa from "../../../../core/assets/github-pauloricardorc.png";
 import Profile from "../../../../core/assets/myimg.jpg";
 
 interface FeedProps {
+  id: string;
   img_profile?: string;
   title?: string;
   subTitle?: string;
@@ -20,6 +21,7 @@ interface FeedProps {
 }
 
 export function CardNews({
+  id,
   img_profile,
   title,
   subTitle,
@@ -28,7 +30,7 @@ export function CardNews({
   feed,
 }: FeedProps) {
   return (
-    <div className="flex flex-col w-full flex-1 h-auto border-b border-t bg-white border-gray-100 p-4 xl:py-4">
+    <div className="flex flex-col w-full flex-1 h-auto border-b last:mt-2 rounded-md border-t bg-white border-gray-100 p-4 xl:py-4">
       <header className="flex mb-4 justify-between">
         <div className="flex gap-3">
           <img
@@ -55,23 +57,23 @@ export function CardNews({
       <footer className="flex justify-between pt-4">
         <div className="flex items-center gap-5">
           <button className="flex items-center gap-1 text-xs text-gray-500 font-semibold border-none">
-            <ThumbsUp size={18} color="#5c48a2" />
+            <ThumbsUp size={18} className="text-primary" />
             99
           </button>
           <button className="flex items-center gap-1 text-xs text-gray-500 font-semibold border-none">
-            <ChatTeardropText size={18} color="#5c48a2" />
+            <ChatTeardropText size={18} className="text-primary" />
             22
           </button>
           <button className="flex items-center gap-1 text-xs text-gray-500 font-semibold border-none">
-            <ShareNetwork size={18} color="#5c48a2" />
+            <ShareNetwork size={18} className="text-primary" />
           </button>
         </div>
         <div className="flex gap-4 items-center">
           <button className="border-none">
-            <PaperPlaneTilt size={18} color="#5c48a2" />
+            <PaperPlaneTilt size={18} className="text-primary" />
           </button>
           <button className="border-none">
-            <DotsThree size={24} color="#5c48a2" weight="fill" />
+            <DotsThree size={24} className="text-primary" weight="fill" />
           </button>
         </div>
       </footer>

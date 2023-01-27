@@ -68,8 +68,40 @@ export function DetailCourse() {
   }, [document]);
 
   return course ? (
-    <div className="flex xl:flex-row w-full h-screen gap-3 xs:flex-col overflow-auto xl:overflow-hidden">
-      <div className="flex-1 gap-4 flex flex-col p-2 xl:px-32 xl:overflow-auto">
+    <div className="flex w-full h-screen flex-col overflow-auto xl:overflow-hidden bg-slate-100">
+      <div className="flex items-center h-auto w-full border-l border-gray-100">
+        <div className="w-full flex gap-4 mx-40 mt-4 rounded-2xl drop-shadow-2xl p-2 items-center bg-white">
+          {course[0]?.items.map((course, index) => (
+            <div
+              key={index}
+              className={
+                items === index
+                  ? "w-auto h-auto max-h-[250px] flex items-center p-2 gap-4 drop-shadow-2xl border border-slate-100 bg-primary bg-opacity-90 rounded-xl hover:cursor-pointer bg-cover overflow-hidden transition duration-200"
+                  : "w-auto h-auto max-h-[250px] flex items-center p-2 gap-4 border-primary border-opacity-10 border bg-white rounded-xl hover:cursor-pointer bg-cover overflow-hidden transition duration-200"
+              }
+              onClick={() => setItem(index)}
+            >
+              <img
+                src={course?.image?.url}
+                alt=""
+                className="w-28 h-20 rounded-md"
+              />
+              <div className="flex flex-col gap-2">
+                <span
+                  className={
+                    items === index
+                      ? "text-sm text-center text-gray-200 font-semibold transition duration-200 max-w-[200px]"
+                      : "text-sm text-center text-gray-600 font-semibold transition duration-200 max-w-[200px]"
+                  }
+                >
+                  {course?.video_title[0]?.text}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex-1 gap-4 flex flex-col py-6 xl:px-40 xl:overflow-auto bg-slate-100">
         <div className="flex flex-col gap-3">
           <p className="text-xl text-gray-600 font-medium">
             {course[0]?.items[0].video_title[0].text}
@@ -78,7 +110,7 @@ export function DetailCourse() {
             {course[0]?.items[0].video_description[0].text}
           </span>
         </div>
-        <div className="flex flex-col pb-4">
+        <div className="flex flex-col pb-4 px-1 items-center">
           <iframe
             className="w-full aspect-video rounded-md shadow-xl bg-gray-600 flex"
             src={content[items]?.video_complet?.url || DefaultImg}
@@ -95,47 +127,6 @@ export function DetailCourse() {
               )
             )}
           </div>
-        </div>
-      </div>
-      <div className="flex xl:max-w-[400px] border-l border-gray-200 h-screen">
-        <div className="w-[500px] h-[400px] flex flex-col gap-4 p-4">
-          {course[0]?.items.map((course, index) => (
-            <div
-              key={index}
-              className={
-                items === index
-                  ? "w-full h-auto max-h-[150px] flex p-2 gap-4 bg-primary rounded-md hover:cursor-pointer bg-cover overflow-hidden"
-                  : "w-full h-auto max-h-[150px] flex p-2 gap-4 bg-slate-100 rounded-md hover:cursor-pointer bg-cover overflow-hidden"
-              }
-              onClick={() => setItem(index)}
-            >
-              <img
-                src={course?.image?.url}
-                alt=""
-                className="w-28 h-20 rounded-md"
-              />
-              <div className="flex flex-col gap-2">
-                <span
-                  className={
-                    items === index
-                      ? "text-base text-gray-200 font-semibold transition duration-200"
-                      : "text-base text-gray-600 font-semibold transition duration-200"
-                  }
-                >
-                  {course?.video_title[0]?.text}
-                </span>
-                <span
-                  className={
-                    items === index
-                      ? "text-sm text-gray-400 transition duration-200 overflow-auto"
-                      : "text-sm text-gray-500 transition duration-200 overflow-auto"
-                  }
-                >
-                  {course?.video_description[0]?.text}
-                </span>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </div>
