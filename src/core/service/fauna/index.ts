@@ -1,5 +1,0 @@
-import { Client } from 'faunadb'
-
-export const fauna = new Client({
-  secret: import.meta.env.VITE_FAUNA_KEY
-})
