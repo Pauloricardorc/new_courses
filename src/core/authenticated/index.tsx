@@ -35,8 +35,6 @@ export function AuthenticatedProvider({ children }: IPropsAuthentication) {
     UserIsPaying();
   }, [count]);
 
-  console.log(count);
-
   return (
     <AuthenticatedContext.Provider value={{ count, UserIsPaying }}>
       {children}

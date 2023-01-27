@@ -69,7 +69,7 @@ export function DetailCourse() {
 
   return course ? (
     <div className="flex xl:flex-row w-full h-screen gap-3 xs:flex-col overflow-auto xl:overflow-hidden">
-      <div className="max-w-[700px] gap-4 flex flex-col p-2 xl:overflow-auto">
+      <div className="flex-1 gap-4 flex flex-col p-2 xl:px-32 xl:overflow-auto">
         <div className="flex flex-col gap-3">
           <p className="text-xl text-gray-600 font-medium">
             {course[0]?.items[0].video_title[0].text}
@@ -97,7 +97,7 @@ export function DetailCourse() {
           </div>
         </div>
       </div>
-      <div className="flex flex-1 border-l border-gray-200 h-screen">
+      <div className="flex xl:max-w-[400px] border-l border-gray-200 h-screen">
         <div className="w-[500px] h-[400px] flex flex-col gap-4 p-4">
           {course[0]?.items.map((course, index) => (
             <div

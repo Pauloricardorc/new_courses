@@ -9,6 +9,10 @@ import { AuthProvider } from "./shared/Login/context";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { AuthenticatedProvider } from "./core/authenticated";
+import { ptBR } from "date-fns/locale";
+import { setDefaultOptions } from "date-fns";
+
+setDefaultOptions({ locale: ptBR });
 
 const initialOptions = {
   "client-id": import.meta.env.VITE_PAYPAL_KEY,

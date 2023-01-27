@@ -1,8 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import {
-  useAllPrismicDocumentsByTag,
-  useAllPrismicDocumentsByType,
-} from "@prismicio/react";
+import { useAllPrismicDocumentsByType } from "@prismicio/react";
 import { Play, Star } from "phosphor-react";
 import React from "../../../../core/assets/react-light.svg";
 import { NavLink } from "react-router-dom";
@@ -41,6 +38,16 @@ type PropsPrimary = {
     type: string;
     text: string;
   }[];
+  thumbnail: {
+    url: string;
+  };
+  preview: {
+    url: string;
+  };
+  price: {
+    type: string;
+    text: string;
+  }[];
 };
 
 interface ICardProps {
@@ -50,14 +57,8 @@ interface ICardProps {
 }
 
 type IImg = {
-  img: {
-    image: {
-      url: string;
-    };
-    img_preview: {
-      url: string;
-    };
-  };
+  thumbnail: string;
+  preview: string;
 };
 
 export function CardCourses() {
@@ -68,27 +69,24 @@ export function CardCourses() {
     document?.map((res) => setCardCourses(res.data.body));
   }, [document]);
 
-  function RenderImg({ img }: IImg) {
+  function RenderImg({ thumbnail, preview }: IImg) {
     const [renderImg, setRenderImg] = useState<ReactNode>();
     return (
       <div
         className="max-h-52 h-52 w-full flex transition duration-200"
         onMouseEnter={() =>
-          setRenderImg(
-            <img src={img?.img_preview.url} alt="" className="w-full h-26" />
-          )
+          setRenderImg(<img src={preview} alt="" className="w-full h-26" />)
         }
         onMouseLeave={() => setRenderImg("")}
       >
         {!renderImg ? (
-          <img src={img?.image.url} alt="" className="w-full h-26" />
+          <img src={thumbnail} alt="" className="w-full h-26" />
         ) : (
           renderImg
         )}
       </div>
     );
   }
-
   return (
     <>
       {cardCourses.map((card) => (
@@ -97,7 +95,10 @@ export function CardCourses() {
           className="w-full md:w-[380px] h-auto bg-white border border-gray-100 flex flex-col gap-4 drop-shadow-sm rounded-md overflow-hidden"
         >
           <header className="relative">
-            <RenderImg img={card.items[0]} />
+            <RenderImg
+              thumbnail={card.primary.thumbnail.url}
+              preview={card.primary.preview.url}
+            />
             <img src={React} alt="" className="w-24 px-4 absolute bottom-0" />
           </header>
           <main className="flex flex-col gap-2 px-4">
@@ -105,7 +106,7 @@ export function CardCourses() {
               {card.items[0].video_title[0].text}
             </p>
             <span className="text-green-500 text-lg font-semibold">
-              $ {card.items[0].price[0].text}
+              R$ {card.primary.price[0].text}
             </span>
             <hr className="border-gray-100 py-1" />
             <div className="flex items-center gap-4 text-gray-500">
@@ -113,9 +114,9 @@ export function CardCourses() {
                 <div className="bg-gray-100 rounded-full p-1">
                   <Play size={12} className="text-primaryHover" weight="fill" />
                 </div>
-                <p className="text-sm">30 vídeos</p>
+                <p className="text-sm">{card.items.length} vídeos</p>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 hover:cursor-pointer">
                 <div className="bg-gray-100 rounded-full p-1">
                   <Star size={12} className="text-primaryHover" weight="fill" />
                 </div>
@@ -126,7 +127,7 @@ export function CardCourses() {
           <footer className="flex items-end justify-end px-4 pb-4">
             <NavLink
               to={`/cursos/${card.id}`}
-              className="border rounded-md py-2 px-4 text-sm border-primary text-primary hover:bg-primaryHover hover:border-primaryHover focus:text-white focus:bg-primaryHover focus:border-primaryHover hover:text-white transition duration-150"
+              className="border rounded-md py-2 px-4 text-sm border-primary text-primary hover:bg-primary hover:border-primary focus:text-white focus:bg-primaryHover focus:border-primaryHover hover:text-white transition duration-150"
             >
               Entrar Agora
             </NavLink>

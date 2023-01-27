@@ -53,7 +53,7 @@ export function CardProfile() {
         <div className="flex p-2 flex-col gap-2">
           <NavLink
             to=""
-            className="w-full h-12 rounded-md bg-blue-500 text-gray-100 hover:bg-blue-600 transition duration-150 flex items-center justify-center"
+            className="w-full h-12 rounded-md bg-primary text-gray-100 hover:bg-opacity-95 transition duration-150 flex items-center justify-center"
           >
             Configurações
           </NavLink>

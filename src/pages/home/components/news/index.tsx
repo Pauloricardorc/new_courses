@@ -15,6 +15,7 @@ interface FeedProps {
   description?: {
     text: string;
   }[];
+  time: string;
   feed?: any;
 }
 
@@ -23,6 +24,7 @@ export function CardNews({
   title,
   subTitle,
   description,
+  time,
   feed,
 }: FeedProps) {
   return (
@@ -40,7 +42,7 @@ export function CardNews({
           </div>
         </div>
         <span className="text-gray-500 text-sm font-normal self-end">
-          24 mins
+          {time}
         </span>
       </header>
 
@@ -52,23 +54,23 @@ export function CardNews({
       </main>
       <footer className="flex justify-between pt-4">
         <div className="flex items-center gap-5">
-          <button className="flex items-center gap-1 text-xs text-gray-500 font-semibold">
+          <button className="flex items-center gap-1 text-xs text-gray-500 font-semibold border-none">
             <ThumbsUp size={18} color="#5c48a2" />
             99
           </button>
-          <button className="flex items-center gap-1 text-xs text-gray-500 font-semibold">
+          <button className="flex items-center gap-1 text-xs text-gray-500 font-semibold border-none">
             <ChatTeardropText size={18} color="#5c48a2" />
             22
           </button>
-          <button className="flex items-center gap-1 text-xs text-gray-500 font-semibold">
+          <button className="flex items-center gap-1 text-xs text-gray-500 font-semibold border-none">
             <ShareNetwork size={18} color="#5c48a2" />
           </button>
         </div>
         <div className="flex gap-4 items-center">
-          <button>
+          <button className="border-none">
             <PaperPlaneTilt size={18} color="#5c48a2" />
           </button>
-          <button>
+          <button className="border-none">
             <DotsThree size={24} color="#5c48a2" weight="fill" />
           </button>
         </div>

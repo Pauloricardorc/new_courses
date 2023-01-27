@@ -1,6 +1,7 @@
 import { useAllPrismicDocumentsByType } from "@prismicio/react";
 import { CardProfile } from "./components/cardProfile";
 import { CardNews } from "./components/news";
+import { formatDistance, subDays } from "date-fns";
 
 export function Home() {
   const [document] = useAllPrismicDocumentsByType("feeds");
@@ -27,6 +28,9 @@ export function Home() {
               title={feed.user_name[0].text}
               subTitle={feed.description_user[0].text}
               description={feed.descricao}
+              time={formatDistance(subDays(new Date(), 3), new Date(), {
+                addSuffix: true,
+              })}
               feed={feed.feed[0]?.url || ""}
             />
           ))}
