@@ -14,7 +14,7 @@
     "@prismicio/client": "^6.7.3",
     "@prismicio/react": "^2.5.1",
     "@supabase/supabase-js": "^2.4.0",
-    "axios": "^1.2.3",
+    "axios": "^1.2.5",
     "date-fns": "^2.29.3",
     "firebase": "^9.16.0",
     "lottie-react": "^2.3.1",

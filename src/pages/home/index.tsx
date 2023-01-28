@@ -2,50 +2,66 @@ import { useAllPrismicDocumentsByType } from "@prismicio/react";
 import { CardProfile } from "./components/cardProfile";
 import { CardNews } from "./components/news";
 import { formatDistance, subDays } from "date-fns";
-import {
-  addDoc,
-  collection,
-  getCountFromServer,
-  query,
-  where,
-} from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "../../core/service/firebase";
 import { useEffect } from "react";
+import { ApiAuth } from "../../core/service/auth0/auth";
 
 export function Home() {
   const [document] = useAllPrismicDocumentsByType("feeds");
 
-  // async function isFeedExist() {
-  //   const userCollection = collection(firestore, "feed");
-  //   const count = document?.map(async (feed) => {
-  //     const queryCollection = query(
-  //       userCollection,
-  //       where("id", "!=", feed?.id)
-  //     );
-  //     const snapshot = await getCountFromServer(queryCollection);
-  //     return snapshot.data().count;
-  //   });
-  //   return count;
-  // }
+  async function feedActions() {
+    const ref = collection(firestore, "feed");
+    document?.map(async (feed) => {
+      const q = query(
+        collection(firestore, "feed"),
+        where("id", "==", feed.id)
+      );
+      const querySnapshot = await getDocs(q);
+      if (querySnapshot.empty === true) {
+        addDoc(ref, {
+          id: feed?.id,
+          ultima_atualizacao_feed: new Date(feed?.last_publication_date),
+          nome: feed.data.user_name[0].text,
+          like: 0,
+          comment: 0,
+        });
+      } else {
+        querySnapshot.forEach((doc) => {
+          if (doc.data().id !== feed.id) {
+            addDoc(ref, {
+              id: feed?.id,
+              ultima_atualizacao_feed: new Date(feed?.last_publication_date),
+              nome: feed.data.user_name[0].text,
+              like: 0,
+              comment: 0,
+            });
+          }
+        });
+      }
+    });
+  }
 
-  // async function feedActions() {
-  //   const ref = collection(firestore, "feed");
-  //   if ((await isFeedExist()) === undefined) {
-  //     document?.map(async (feed) => {
-  //       await addDoc(ref, {
-  //         id: feed?.id,
-  //         ultima_atualizacao_feed: new Date(feed?.last_publication_date),
-  //         nome: feed.data.user_name[0].text,
-  //         like: 0,
-  //         comment: 0,
-  //       });
-  //     });
-  //   }
-  // }
+  async function getRolesUser() {
+    const result = await ApiAuth.post("oauth/token", {
+      Headers: {
+        "content-type": "application/json",
+      },
+      data: {
+        client_id: "fLnqomSSruA4qX5HHabP3qHKStU9Ohqb",
+        client_secret:
+          "OCxCqEN7pV_IhGTTen2_7Flk1-jloLTo_7Kx1MPC2UAttriFKqEJcU7ERMajDczf",
+        audience: "https://dev-galax.us.auth0.com/api/v2/",
+        grant_type: "client_credentials",
+      },
+    });
+    console.log(result);
+  }
 
-  // useEffect(() => {
-  //   feedActions();
-  // }, []);
+  useEffect(() => {
+    getRolesUser();
+    feedActions();
+  }, [document]);
 
   return (
     <div className="flex w-full p-2 md:p-0 bg-slate-100">
@@ -69,9 +85,7 @@ export function Home() {
               title={feed.data.user_name[0].text}
               subTitle={feed.data.description_user[0].text}
               description={feed.data.descricao}
-              time={formatDistance(subDays(new Date(), 3), new Date(), {
-                addSuffix: true,
-              })}
+              time={formatDistance(new Date(), new Date(feed.data.publication))}
               feed={feed.data.feed[0]?.url || ""}
             />
           ))}
